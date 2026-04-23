@@ -1,0 +1,13 @@
+{
+  "name": "codex-rate-viewer",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Realtime local viewer for Codex rate limits.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  }
+}
