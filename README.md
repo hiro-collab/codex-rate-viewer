@@ -2,6 +2,10 @@
 
 Codex の残りレートをローカルでリアルタイム表示する小さなビューアーです。依存パッケージなしで動き、Codex App Server の `account/rateLimits/read` と `account/rateLimits/updated` を使って 5h / weekly の使用率、リセット時刻、直近の消費ペースを表示します。
 
+![Codex Rate Viewer demo snapshot](public/snapshot.png)
+
+README の画像は `?demo=1` で描画したサニタイズ済みのサンプル表示です。
+
 ## 起動
 
 ```powershell

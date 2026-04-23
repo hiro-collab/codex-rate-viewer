@@ -26,6 +26,76 @@ const dom = {
 };
 
 let latestState = null;
+const demoMode = new URLSearchParams(window.location.search).has("demo");
+
+const demoState = {
+  viewerStartedAt: Date.now() - 1000 * 60 * 18,
+  appServerUrl: "ws://127.0.0.1:35420",
+  connection: "online",
+  connectionDetail: "Demo snapshot",
+  codexHome: "C:\\Users\\you\\.codex",
+  userAgent: "Codex Desktop/0.117.0 (demo)",
+  rateLimits: {
+    limitId: "codex",
+    limitName: null,
+    primary: {
+      usedPercent: 54,
+      windowDurationMins: 300,
+      resetsAt: Math.floor(Date.now() / 1000) + 78 * 60,
+    },
+    secondary: {
+      usedPercent: 18,
+      windowDurationMins: 10080,
+      resetsAt: Math.floor(Date.now() / 1000) + 5 * 24 * 60 * 60,
+    },
+    credits: {
+      hasCredits: false,
+      unlimited: false,
+      balance: "0",
+    },
+    planType: "plus",
+  },
+  rateLimitsByLimitId: null,
+  threads: [
+    {
+      id: "demo-thread-1",
+      preview: "Build rate limit viewer",
+      status: { type: "active" },
+      source: "vscode",
+      name: "Build rate limit viewer",
+    },
+    {
+      id: "demo-thread-2",
+      preview: "Review dashboard layout",
+      status: { type: "idle" },
+      source: "cli",
+      name: "Review dashboard layout",
+    },
+    {
+      id: "demo-thread-3",
+      preview: "Polish README snapshot",
+      status: { type: "notLoaded" },
+      source: "appServer",
+      name: "Polish README snapshot",
+    },
+  ],
+  tokenUsageByThread: {
+    "demo-thread-1": { total: { totalTokens: 48200 } },
+    "demo-thread-2": { total: { totalTokens: 17480 } },
+  },
+  lastUpdated: Date.now(),
+  history: Array.from({ length: 48 }, (_, index) => ({
+    at: Date.now() - (47 - index) * 60 * 1000,
+    primaryUsed: 24 + index * 0.65 + Math.sin(index / 3) * 4,
+    secondaryUsed: 14 + index * 0.08,
+  })),
+  events: [
+    { at: Date.now() - 1000 * 11, level: "info", message: "Connected to Codex App Server" },
+    { at: Date.now() - 1000 * 45, level: "info", message: "Rate limits updated" },
+    { at: Date.now() - 1000 * 92, level: "warn", message: "Primary window usage rising" },
+  ],
+  errors: [],
+};
 
 function percent(value) {
   if (!Number.isFinite(value)) return "--";
@@ -266,5 +336,10 @@ setInterval(() => {
   if (latestState) render(latestState);
 }, 1000);
 
-loadSnapshot().catch(() => {});
-connectEvents();
+if (demoMode) {
+  render(demoState);
+  setInterval(() => render(demoState), 1000);
+} else {
+  loadSnapshot().catch(() => {});
+  connectEvents();
+}
