@@ -26,6 +26,15 @@ npm start
 - `CODEX_SPAWN_APP_SERVER=0`: App Server を自動起動しない
 - `CODEX_BIN`: `codex` 実行ファイルのパスを明示する
 
+## Playwright CLI
+
+このプロジェクトには `@playwright/cli` を dev dependency として入れています。
+
+```powershell
+npm run pw -- --help
+npm run pw:open
+```
+
 ## GitHub
 
 このローカル作業ツリーは次のリポジトリを `origin` に設定しています。

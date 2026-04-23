@@ -8,6 +8,11 @@
   },
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "pw": "playwright-cli",
+    "pw:open": "playwright-cli open http://127.0.0.1:8787"
+  },
+  "devDependencies": {
+    "@playwright/cli": "^0.1.8"
   }
 }
